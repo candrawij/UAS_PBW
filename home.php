@@ -7,303 +7,57 @@
     include "connection.php";
 ?>
 
+    
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nemma - Game shop</title>
-    <link rel="icon" href="images/logo.png">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Dashboard</title>
+    <!-- Link Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <header id="atas">
-        <a href="https://instagram.com/nemma_store/" target="_blank" rel="noopener noreferrer" class="logo">
-            <img src="images/logo.png" alt="Nemma" style="width: 100%; height: 60px; object-fit: scale-down;">
-        </a>
-        <div class="navigation">
-            <ul class="menu">
-                <li class="menu-item"><a href="#home">Home</a></li>
-                <li class="menu-item"><a href="#populer">Daftar Item</a></li>
-                <li class="menu-item"><a href="input.php">input</a></li>
-                <li class="menu-item"><a href="#tabelbk">Tabel Buku</a></li>
-                <li class="menu-item"><a href="logout.php">Logout</a></li>
-            </ul>
+    <div class="container mt-5">
+        <h1 class="text-center">Selamat Datang</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>Informasi</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Username</td>
+                            <td><?php echo htmlspecialchars($_SESSION['username']);?></td>
+                        </tr>
+                        <tr>
+                            <td>User ID</td>
+                            <td><?php echo htmlspecialchars($_SESSION['userid']);?></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center mt-3">
+                    <a href="logout.php" class="btn btn-danger">Log Out</a>
+                </div>
+            </div>
         </div>
-    </header>
-
-<section>
-    <div id="home" class="slider">
-        <!-- Slider main container -->
-<div class="swiper">
-    <!-- Additional required wrapper -->
-    <div class="swiper-wrapper">
-      <!-- Slides -->
-      <div class="swiper-slide"><img src="images/image 1.jpg" alt=""></div>
-      <div class="swiper-slide"><img src="images/image 2.jpg" alt=""></div>
-      <div class="swiper-slide"><img src="images/image 3.jpeg" alt=""></div>
-
     </div>
-    <!-- If we need pagination -->
-    <div class="swiper-pagination"></div>
-  
-    <!-- If we need navigation buttons -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
+    <!-- Link Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
-<script>
-    const swiper = new Swiper('.swiper', {
-    
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-  loop: true,
-
-  // If we need pagination
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-
-});
-</script>
-
-</section>
-</div>
-    <h1 id="populer" class="title-p">Games</h1>
-    <section class="populer">
-        <div class="Genshin">
-            <div class="link">
-                <a href="#harga-Genshin">
-                        <img src="images/GenshinImpact.jpg" alt="">
-                        <div class="judul-produk">Genshin Impact</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-Genshin">
-                <div class="popup">
-                    <h2>HARGA GENSHIN IMPACT</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="Mobile Legends">
-            <div class="link">
-                <a href="#harga-ML">
-                        <img src="images/mlbb.jpg" alt="">
-                        <div class="judul-produk">Mobile Legends</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-ML">
-                <div class="popup">
-                    <h2>HARGA MOBILE LEGENDS</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="PUBG">
-            <div class="link">
-                <a href="#harga-PUBG">
-                        <img src="images/pubgm.jpg" alt="">
-                        <div class="judul-produk">PUBG Mobile</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-PUBG">
-                <div class="popup">
-                    <h2>HARGA PUBG MOBILE</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="FF">
-            <div class="link">
-                <a href="#harga-FF">
-                        <img src="images/ff.png" alt="">
-                        <div class="judul-produk">Free Fire</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-FF">
-                <div class="popup">
-                    <h2>HARGA FREE FIRE</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="Honkai Impact">
-            <div class="link">
-                <a href="#harga-HI">
-                        <img src="images/Honkai.png" alt="">
-                        <div class="judul-produk">Honkai Impact 3rd</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-HI">
-                <div class="popup">
-                    <h2>HARGA HONKAI IMPACT</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="Valorant">
-            <div class="link">
-                <a href="#home">
-                        <img src="images/valorant.jpg" alt="">
-                        <div class="judul-produk">Valorant</div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <h1 class="title-p">Aplikasi Premium</h1>
-    <section id="aplikasipremium" class="populer">
-        <div class="Spotify">
-            <div class="link">
-                <a href="#harga-spotify">
-                        <img src="images/spotify.png" alt="">
-                        <div class="judul-produk">Spotify</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-spsotify">
-                <div class="popup">
-                    <h2>HARGA SPOTIFY</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="Netflix">
-            <div class="link">
-                <a href="#harga-Netflix">
-                        <img src="images/netflix.png" alt="">
-                        <div class="judul-produk">Netflix</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-Netflix">
-                <div class="popup">
-                    <h2>HARGA NETFLIX</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="Picsart">
-            <div class="link">
-                <a href="#harga-Picsart">
-                        <img src="images/picsart-app-icon.png" alt="">
-                        <div class="judul-produk">Picsart</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-Picsart">
-                <div class="popup">
-                    <h2>HARGA PICSART</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="HBO">
-            <div class="link">
-                <a href="#harga-HBO">
-                        <img src="images/HBO go.png" alt="">
-                        <div class="judul-produk">HBO</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-HBO">
-                <div class="popup">
-                    <h2>HARGA HBO</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="Canva">
-            <div class="link">
-                <a href="#harga-Canva">
-                        <img src="images/canva.png" alt="">
-                        <div class="judul-produk">Canva</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-Canva">
-                <div class="popup">
-                    <h2>HARGA CANVA</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="Alight Motion">
-            <div class="link">
-                <a href="#harga-AM">
-                        <img src="images/am.png" alt="">
-                        <div class="judul-produk">Alight Motion</div>
-                </a>
-            </div>
-            <div class="overlay" id="harga-AM">
-                <div class="popup">
-                    <h2>HARGA ALIGTH MOTION</h2>
-                    <a class="close" href="#populer">&times;</a>
-                    <br>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="YT">
-            <div class="link">
-                <a href="#home">
-                        <img src="images/YT.png" alt="">
-                        <div class="judul-produk">Youtube Premium</div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="tentang" id="tentang">
-        <div class="card">
-            <h1>TENTANG KAMI</h1>
-            <br>
-            <p>
-                <a href="" class="title">NEMMASTORE</a> adalah website yang menyediakan layanan digital 
-                <br>
-                seperti layanan streaming premium, voucher game, dan lain-lain.
-                <br>
-                Kami berdiri sejak tahun 2023 dan telah dipercaya oleh berbagai konsumen.
-            </p>
-        </div>
-    </section>
-
-    <?php
+<?php
     $dbh = $koneksi->query("SELECT * FROM buku WHERE isdel = 0");
     $bukus = $dbh->fetch(PDO::FETCH_ASSOC);
-    ?>
-<div class="tabel_buku" id="tabelbk">
+?>
 
-<table border="1">
+<a href="input.php">Tambah data</a>
+<table border="1" >
     <tr>
         <th>No</th>
         <th>Judul</th>
@@ -311,7 +65,7 @@
         <th>Aksi</th>
     </tr>
     <?php
-        $no = $bukus['id'];
+        $no = 1;
         while($bukus = $dbh->fetch(PDO::FETCH_ASSOC))
         {
     ?>
@@ -319,7 +73,7 @@
             <td><?php echo $no ?> </td>
             <td><?php echo $bukus['judul'] ?></td>
             <td><?php echo $bukus['tahun'] ?></td>
-            <td><a href="edit.php?id=<?php echo $bukus['id'] ?>">Edit</a> | <a 
+            <td><a href="edit.hp?id=1">Edit</a> | <a 
             href="delete.php?id=<?php echo $bukus['id']?>">Hapus</a></td>
         </tr>
     <?php
@@ -328,29 +82,3 @@
     ?>
 
 </table>
-
-    <!--Footer Start-->
-    <footer id="sosmed">
-        <div class="footerContainer">
-          <div class="socialicons">
-            <a href=""><i class="fa-brands fa-facebook"></i></a>
-            <a href=""><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="#home"><i class="fa-brands fa-instagram"></i></a>
-          </div>
-          <div class="footernav">
-            <ul>
-              <li><a href="">Home</a></li>
-              <li><a href="">News</a></li>
-              <li><a href="">About</a></li>
-              <li><a href="">Contact Us</a></li>
-              <li><a href="">Our Team</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="footereBottom">
-          <p>Copyright &copy2023 Designed by <span class="designer">Nemma Official</span></p>
-        </div>
-      </footer>
-    <!--Footer End-->
-</body>
-</html>
