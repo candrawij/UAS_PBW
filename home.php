@@ -13,10 +13,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <!-- Link Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,7 +28,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="input.php"><i class="fas fa-plus"></i> Tambah Data</a>
+                        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#tambahModal">
+                            <i class="fas fa-plus"></i> Tambah Data
+                        </button>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Log Out</a>
@@ -98,6 +100,34 @@
         </div>
     </div>
 
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahModalLabel">Tambah Data Buku</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="tambahForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="judul" class="form-label">Judul Buku</label>
+                            <input type="text" class="form-control" id="judul" name="judul" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tahun" class="form-label">Tahun Terbit</label>
+                            <input type="number" class="form-control" id="tahun" name="tahun" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Edit -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -106,15 +136,15 @@
                     <h5 class="modal-title" id="editModalLabel">Edit Buku</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="editForm" method="POST" action="aksiedit.php">
+                <form id="editForm">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="editJudul" class="form-label">Judul</label>
-                            <input type="text" class="form-control" id="editJudul" name="judul">
+                            <input type="text" class="form-control" id="editJudul" name="judul" required>
                         </div>
                         <div class="mb-3">
                             <label for="editTahun" class="form-label">Tahun Terbit</label>
-                            <input type="text" class="form-control" id="editTahun" name="tahun">
+                            <input type="number" class="form-control" id="editTahun" name="tahun" required>
                         </div>
                         <input type="hidden" id="editId" name="id">
                     </div>
@@ -127,12 +157,47 @@
         </div>
     </div>
 
-    <!-- Link Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <!-- Modal Hapus -->
+    <div class="modal fade" id="hapusModal" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus data ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <a id="confirmHapus" class="btn btn-danger" href="#">Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         $(document).ready(function () {
-            // Edit button click
+            // Tambah Buku
+            $('#tambahForm').on('submit', function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: 'input_data.php',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        alert('Data berhasil ditambahkan!');
+                        $('#tambahModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Terjadi kesalahan saat menambahkan data.');
+                    }
+                });
+            });
+
+            // Edit Buku
             $('.edit-btn').click(function () {
                 const id = $(this).data('id');
                 const judul = $(this).data('judul');
@@ -145,12 +210,29 @@
                 $('#editModal').modal('show');
             });
 
-            // Delete button click
+            $('#editForm').on('submit', function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: 'aksiedit.php',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        alert('Data berhasil diperbarui!');
+                        $('#editModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Terjadi kesalahan saat memperbarui data.');
+                    }
+                });
+            });
+
+            // Hapus Buku
             $('.delete-btn').click(function () {
-                const id = $(this).data('id');
-                if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                    window.location.href = `delete.php?id=${id}`;
-                }
+                const deleteId = $(this).data('id');
+                $('#confirmHapus').attr('href', `delete.php?id=${deleteId}`);
+                $('#hapusModal').modal('show');
             });
         });
     </script>
