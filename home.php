@@ -80,7 +80,7 @@
                 <tbody>
                     <?php
                         $no = 1;
-                        $query = $koneksi->query("SELECT * FROM buku join penulis on buku.id_penulis = penulis.id WHERE isdel = 0");
+                        $query = $koneksi->query("SELECT buku.*, penulis.id as id_penulis, penulis.nama_penulis FROM buku JOIN penulis ON buku.id_penulis = penulis.id WHERE isdel = 0");
                         while ($buku = $query->fetch(PDO::FETCH_ASSOC)) {
                     ?>
                     <tr>
@@ -89,7 +89,7 @@
                         <td><?php echo htmlspecialchars($buku['tahun']); ?></td>
                         <td><?php echo htmlspecialchars($buku['nama_penulis']); ?></td>
                         <td class="text-center">
-                            <button class="btn btn-primary btn-sm edit-btn" data-id="<?php echo $buku['id']; ?>" data-judul="<?php echo htmlspecialchars($buku['judul']); ?>" data-tahun="<?php echo htmlspecialchars($buku['tahun']); ?>" data-penulis="<?php echo htmlspecialchars($buku['nama_penulis']); ?>"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-primary btn-sm edit-btn" data-id="<?php echo $buku['id']; ?>" data-judul="<?php echo htmlspecialchars($buku['judul']); ?>" data-tahun="<?php echo htmlspecialchars($buku['tahun']); ?>" data-nama_penulis="<?php echo htmlspecialchars($buku['nama_penulis']); ?>"><i class="fas fa-edit"></i> Edit</button>
                             <button class="btn btn-danger btn-sm delete-btn" data-id="<?php echo $buku['id']; ?>"><i class="fas fa-trash-alt"></i> Hapus</button>
                         </td>
                     </tr>
@@ -122,7 +122,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="penulis" class="form-label">Penulis</label>
-                            <input type="text" class="form-control" id="penulis" name="penulis" required>
+                            <select class="form-control" id="id_penulis" name="id_penulis" required>
+                            <?php
+                            $penulisQuery = $koneksi->query("SELECT id, nama_penulis FROM penulis");
+                            while ($penulis = $penulisQuery->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option value='{$penulis['id']}'>{$penulis['nama_penulis']}</option>";
+                            }
+                            ?>
+                            </select>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -154,7 +162,14 @@
                         </div>
                         <div class="mb-3">
                             <label for="editPenulis" class="form-label">Penulis</label>
-                            <input type="text" class="form-control" id="editPenulis" name="penulis" required>
+                            <select class="form-control" id="id_penulis" name="id_penulis" required>
+                            <?php
+                            $penulisQuery = $koneksi->query("SELECT id, nama_penulis FROM penulis");
+                            while ($penulis = $penulisQuery->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option value='{$penulis['id']}'>{$penulis['nama_penulis']}</option>";
+                            }
+                            ?>
+                            </select>
                         </div>
                         <input type="hidden" id="editId" name="id">
                     </div>
