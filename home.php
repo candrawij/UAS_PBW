@@ -27,9 +27,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#tambahModal">
-                            <i class="fas fa-plus"></i> Tambah Data
+                    <li class="nav-item me-3">
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahModal">
+                            <i class="fas fa-plus"></i> Tambah Data Buku
+                        </button>
+                    </li>
+                    <li class="nav-item me-3">
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahPenulisModal">
+                            <i class="fas fa-plus"></i> Tambah Data Penulis
                         </button>
                     </li>
                     <li class="nav-item">
@@ -100,9 +105,41 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="mt-5">
+            <h3><i class="fas fa-pen"></i> Daftar Penulis</h3>
+            <table class="table table-bordered">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $no = 1;
+                        $query = $koneksi->query("SELECT * FROM penulis");
+                        while ($penulis = $query->fetch(PDO::FETCH_ASSOC)) {
+                    ?>
+                    <tr>
+                        <td class="text-center"><?php echo $no; ?></td>
+                        <td><?php echo htmlspecialchars($penulis['nama_penulis']); ?></td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm editPenulis-btn" data-nama="<?php echo htmlspecialchars($penulis['nama_penulis']); ?>"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-danger btn-sm deletePenulis-btn" data-id="<?php echo $penulis['id']; ?>"><i class="fas fa-trash-alt"></i> Hapus</button>
+                        </td>
+                    </tr>
+                    <?php
+                        $no++;
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- Modal Tambah -->
+    <!-- Modal Tambah Buku-->
     <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -142,7 +179,31 @@
         </div>
     </div>
 
-    <!-- Modal Edit -->
+    <!-- Modal Tambah Penulis-->
+    <div class="modal fade" id="tambahPenulisModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahModalLabel">Tambah Data Penulis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="tambahPenulisForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama Penulis</label>
+                            <input type="text" class="form-control" id="nama" name="nama" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Buku-->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -182,8 +243,38 @@
         </div>
     </div>
 
-    <!-- Modal Hapus -->
-    <div class="modal fade" id="hapusModal" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
+    <!-- Modal Edit Penulis-->
+    <div class="modal fade" id="editPenulisModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Data Penulis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editPenulisForm">
+    <!-- Input Hidden untuk Nama Asli -->
+    <input type="hidden" id="namaOri" name="namaOri">
+
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="editNama" class="form-label">Nama Penulis</label>
+            <input type="text" class="form-control" id="editNama" name="editNama" required>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+    </div>
+</form>
+
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Modal Hapus Buku -->
+    <div class="modal fade" id="hapusBukuModal" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -191,11 +282,30 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Apakah Anda yakin ingin menghapus data ini?
+                    Apakah Anda yakin ingin menghapus buku ini?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <a id="confirmHapus" class="btn btn-danger" href="#">Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Hapus Penulis -->
+    <div class="modal fade" id="hapusPenulisModal" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus penulis ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <a id="confirmHapusBuku" class="btn btn-danger" href="#">Hapus</a>
                 </div>
             </div>
         </div>
@@ -206,14 +316,32 @@
             // Tambah Buku
             $('#tambahForm').on('submit', function (e) {
                 e.preventDefault();
-
                 $.ajax({
-                    url: 'input_data.php',
+                    url: 'input_buku.php',
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function (response) {
                         alert('Data berhasil ditambahkan!');
                         $('#tambahModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Terjadi kesalahan saat menambahkan data.');
+                    }
+                });
+            });
+
+            // Tambah Penulis
+            $('#tambahPenulisForm').on('submit', function (e) {
+                e.preventDefault();
+                
+                $.ajax({
+                    url: 'input_penulis.php',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        alert('Data berhasil ditambahkan!');
+                        $('#tambahPenulisModal').modal('hide');
                         location.reload();
                     },
                     error: function () {
@@ -241,7 +369,7 @@
                 e.preventDefault();
 
                 $.ajax({
-                    url: 'aksiedit.php',
+                    url: 'edit_buku.php',
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function (response) {
@@ -254,12 +382,54 @@
                     }
                 });
             });
+    
+            // Edit Penulis
+            $('.editPenulis-btn').click(function () {
+                const namaOri = $(this).data('nama');  // Ambil nama asli penulis
+                const namaEdit = namaOri;  // Nama yang akan diubah, dapat diubah nanti oleh pengguna
+
+                $('#editNama').val(namaEdit);
+                $('#namaOri').val(namaOri);
+
+                    $('#editPenulisModal').modal('show');
+            });
+
+
+            $('#editPenulisForm').on('submit', function (e) {
+                e.preventDefault();
+
+                // Menggunakan serialize() untuk mengumpulkan data form
+                const formData = $(this).serialize();
+
+                $.ajax({
+                    url: 'edit_penulis.php',
+                    type: 'POST',
+                    data: formData,  // Kirim data form
+                    success: function (response) {
+                        alert('Data berhasil diperbarui!');
+                        $('#editPenulisModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Terjadi kesalahan saat memperbarui data.');
+                    }
+                });
+            });
+
+
 
             // Hapus Buku
             $('.delete-btn').click(function () {
                 const deleteId = $(this).data('id');
-                $('#confirmHapus').attr('href', `delete.php?id=${deleteId}`);
-                $('#hapusModal').modal('show');
+                $('#confirmHapus').attr('href', `delete_buku.php?id=${deleteId}`);
+                $('#hapusBukuModal').modal('show');
+            });
+
+            // Hapus Penulis
+            $('.deletePenulis-btn').click(function () {
+                const deleteId = $(this).data('id');
+                $('#confirmHapusBuku').attr('href', `delete_penulis.php?id=${deleteId}`);
+                $('#hapusPenulisModal').modal('show');
             });
         });
     </script>
