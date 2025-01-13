@@ -14,6 +14,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<head>
+<head>
+    <style>
+        body {
+            background-image: url('https://media.istockphoto.com/id/1019217092/id/foto/ruang-interior-perpustakaan-umum-yang-kabur-abstrak-ruang-buram-dengan-rak-buku-oleh-efek.jpg?s=612x612&w=0&k=20&c=CFByeoq4_Wr_WfgGCy5gZDc__-oNZytZm9uci18Mh_M=');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +43,7 @@
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                         <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        <div id="emailHelp" class="form-text">Email=sample@gmail.com, pass=123</div>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>

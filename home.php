@@ -10,6 +10,19 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
+<head>
+<head>
+    <style>
+        body {
+            background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20240819/pngtree-stunning-interior-of-a-grand-library-with-wooden-bookshelves-and-cozy-image_16170183.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
@@ -46,7 +59,7 @@
     </nav>
 
     <div class="container mt-5">
-        <h1 class="text-center">Selamat Datang</h1>
+        <h1 class="text-center text-white">Selamat Datang</h1>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <table class="table table-bordered table-striped">
@@ -71,7 +84,7 @@
         </div>
 
         <div class="mt-5">
-            <h3><i class="fas fa-book"></i> Daftar Buku</h3>
+            <h3 class="text-white"><i class="fas fa-book"></i> Daftar Buku</h3>
             <table class="table table-bordered">
                 <thead class="table-dark text-center">
                     <tr>
@@ -107,7 +120,7 @@
         </div>
 
         <div class="mt-5">
-            <h3><i class="fas fa-pen"></i> Daftar Penulis</h3>
+            <h3 class="text-white"><i class="fas fa-pen"></i> Daftar Penulis</h3>
             <table class="table table-bordered">
                 <thead class="table-dark text-center">
                     <tr>
